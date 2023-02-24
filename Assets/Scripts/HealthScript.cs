@@ -13,10 +13,12 @@ public class HealthScript : MonoBehaviour
     [SerializeField] ParticleSystem shieldEffect;
     [SerializeField] float effectYOffset = 0f;
     [SerializeField] bool applyCameraShake;
-    [SerializeField] float barrelRollDuration = 2f;
+    [SerializeField] float barrelRollDuration = 1.5f;
     [SerializeField] float barrelRollCooldown = 5f;
 
+    int cRoll = 0;
     bool isEvading = false;
+    //bool wasEvading = false;
     int maxHealth = 50;
     float shieldDuration = 0f;
     float barrelRollInternalCooldown;
@@ -164,7 +166,16 @@ public class HealthScript : MonoBehaviour
             if (isEvading)
             {
                 PlayBarrelRoll();
+                //wasEvading = true;
             }
+
+            // if (!isEvading && wasEvading)
+            // {
+            //     mainSpriteTransfrom.rotation.Set(0, 0, 0, 0);
+            //     //Debug.Log("wasevading");
+            //     cRoll = 0;
+            //     wasEvading = false;
+            // }
 
             //direkt, egy check olcsóbb, mint egy állítás?
             if (shieldDuration <= Mathf.Epsilon)
@@ -218,23 +229,27 @@ public class HealthScript : MonoBehaviour
 
     public IEnumerator EndRoll()
     {
-        yield return new WaitForSeconds(barrelRollDuration);
+        yield return new WaitForSecondsRealtime(barrelRollDuration);
         isEvading = false;
         barrelRollInternalCooldown = barrelRollCooldown;
+        //mainSpriteTransfrom.rotation.Set(0, 0, 0, 0);
+        cRoll = 0;
         //Debug.Log("Barrel roll ended");
     }
 
     public void PlayBarrelRoll()
     {
-        if (mainSpriteTransfrom != null) 
+        if (mainSpriteTransfrom != null)
         {
-            if (mainSpriteTransfrom.rotation.y <=  360)
+            cRoll += 2;
+            if (cRoll < 360)
             {
-                mainSpriteTransfrom.Rotate(new Vector3(0, 1, 0));
+                mainSpriteTransfrom.Rotate(new Vector3(0, 2, 0));
+                //Debug.Log(cRoll);
             }
             else
             {
-                mainSpriteTransfrom.Rotate(new Vector3(0, 0, 0));
+                mainSpriteTransfrom.rotation.Set(0, 0, 0, 0);
             }
         }
     }
@@ -253,28 +268,5 @@ public class HealthScript : MonoBehaviour
 
     //         yield return null;
     //     }
-    // }
-
-    // public void AddShield(float duration)
-    // {
-    //     StartCoroutine(AddShieldCR(duration));
-    // }
-
-    // public IEnumerator AddShieldCR(float duration)
-    // {
-    //     Debug.Log("Shield added");
-    //     player.shield.enabled = true;
-    //     shields.Add(true);
-    //     //player shield enable
-    //     //shield flag enable
-    //     //várni duration secet
-    //     //player shield disable
-    //     yield return new WaitForSeconds(duration);
-    //     if (shields.Any())
-    //         shields.RemoveAt(0);
-    //     if (!shields.Any())
-    //         player.shield.enabled = false;
-
-    //     Debug.Log("Shield disabled");
     // }
 }

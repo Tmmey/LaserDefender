@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
                     yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
                 }
 
-                yield return new WaitForSeconds(timeBetweenWaves);
+                yield return new WaitForSeconds(timeBetweenWaves -  Math.Min((Time.deltaTime * 0.002f), 0f));
             }
         }
         while (isLooping);
