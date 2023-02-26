@@ -61,7 +61,7 @@ public class LiutenantSpawner : MonoBehaviour
         LiutenantBase.propertyCount = liutenantPropertyCounter;
         ++liutenantPropertyCounter;
         Instantiate(LiutenantBase, new Vector3(maxBounds.x - 20, maxBounds.y - 20, 0), Quaternion.identity);
-        Debug.Log("maxBounds.x - 20: " + (maxBounds.x - 20) + "maxBounds.y - 20: " + (maxBounds.y - 20));
+        //Debug.Log("maxBounds.x - 20: " + (maxBounds.x - 20) + "maxBounds.y - 20: " + (maxBounds.y - 20));
     }
 
     public float GetRandomSpawnTime()

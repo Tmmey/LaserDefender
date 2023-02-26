@@ -26,16 +26,22 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGameOver()
     {
-        // var enemies = FindObjectOfType(typeof(HealthScript));
-        // var powerups = FindObjectsOfType(typeof(HealthPowerup));
-        // Debug.Log("Powerups to destroy: " + powerups.Length);
+        var currentScore = scoreKeeper.GetCurrentScore();
+        var lowestHighScore = scoreKeeper.GetLowestHighsscore();
 
-        // foreach(var item in powerups)
-        // {
-        //     Destroy(item);
-        // }
+        if (lowestHighScore < currentScore)
+        {
+            StartCoroutine(WaitOnLoad("HighScore", sceneLoadDelay));
+        }
+        else
+        {
+            StartCoroutine(WaitOnLoad("GameOver", sceneLoadDelay));
+        }
+    }
 
-        StartCoroutine(WaitOnLoad("GameOver", sceneLoadDelay));
+    public void LoadHighscores()
+    {
+        SceneManager.LoadScene("HighScore");
     }
 
     public void QuitGame()

@@ -157,7 +157,6 @@ public class HealthScript : MonoBehaviour
                 shieldDuration -= Time.deltaTime;
             }
 
-            //Debug.Log(barrelRollInternalCooldown);
             if (!isEvading && barrelRollInternalCooldown > Mathf.Epsilon)
             {
                 barrelRollInternalCooldown -= Time.deltaTime;

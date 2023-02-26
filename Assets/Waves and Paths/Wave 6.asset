@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 7845406175121453215, guid: 768667bc7f3d4ec468ac664c4c744fb7, type: 3}
   - {fileID: 7845406175121453215, guid: 66321a2f822e85b47ac583b056b0dc10, type: 3}
   pathPrefab: {fileID: 5817613332644273289, guid: 08e40b99e8a128041902973f3904d7fa, type: 3}
-  moveSpeed: 4
-  timeBetweenEneySpawns: 2
-  spawnTimeVariance: 1
+  moveSpeed: 6
+  timeBetweenEneySpawns: 1.2
+  spawnTimeVariance: 0.8
   minimumSpawnTime: 0.4

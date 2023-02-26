@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour
@@ -14,7 +15,8 @@ public class ScoreKeeper : MonoBehaviour
         return instance;
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         ManageSingleton();
     }
 
@@ -46,5 +48,26 @@ public class ScoreKeeper : MonoBehaviour
     public void ResetScore()
     {
         currentScore = 0;
+    }
+
+    public int GetLowestHighsscore()
+    {
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        var highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        highscores.highscoreEntryList = highscores.highscoreEntryList.OrderByDescending(x => x.score).ToList();
+
+        return highscores.highscoreEntryList[Mathf.Min(4, highscores.highscoreEntryList.Count - 1)].score;
+    }
+
+    private class Highscores
+    {
+        public List<HighscoreEntry> highscoreEntryList;
+    }
+
+    [System.Serializable]
+    private class HighscoreEntry
+    {
+        public int score;
+        public string name;
     }
 }
